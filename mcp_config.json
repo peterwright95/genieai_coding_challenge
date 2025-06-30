@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "file-agent": {
+      "command": "/Users/peter/Documents/agent_assignment_genieai/start_mcp.sh",
+      "description": "Autonomous File Management Agent. Supports listing, reading, writing, deleting files, and answering questions based on file contents. Operates strictly within a secure workspace directory.",
+      "args": [],
+      "capabilities": [
+        "List files with metadata",
+        "Read file contents",
+        "Write or append to files",
+        "Delete files",
+        "Answer content-based questions",
+        "Safe, autonomous planning with ReAct reasoning",
+        "Strict workspace boundary enforcement"
+      ]
+    }
+  }
+}
