@@ -84,7 +84,7 @@ def write_file(ctx: RunContext, filename: str, content: str, mode: str = "w") ->
     try:
         with open(path, mode) as f:
             if mode == "a":
-                f.write("\n" + content)
+                f.write(" \n" + content)
             else:
                 f.write(content)
 

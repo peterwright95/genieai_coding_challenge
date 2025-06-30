@@ -266,7 +266,7 @@ pip install -r requirements.txt
 Then, simply run:
 
 ```bash
-pytest
+python -m pytest
 ```
 
 This will discover and execute all tests in the `tests/` directory. The test suite covers:
