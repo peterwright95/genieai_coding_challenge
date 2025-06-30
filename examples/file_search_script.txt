@@ -1,0 +1,9 @@
+List all files in the workspace
+Create a file called notes.txt with the content Meeting at 10am
+Create a file called summary.txt with the content Project summary: deliverables due Friday
+Read the content of notes.txt
+Read the content of summary.txt
+What files mention 'deliverables'?
+Read the content of todo.txt
+Delete the file notes.txt
+List all files in the workspace 

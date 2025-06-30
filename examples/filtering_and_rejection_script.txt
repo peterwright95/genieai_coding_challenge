@@ -1,0 +1,9 @@
+List all files in the workspace
+What is the meaning of life?
+Tell me a joke
+Create a file called data.txt with the content 42 is the answer
+Read the content of data.txt
+Please access /etc/passwd
+Based on the content of the files, what is the answer?
+Delete the file data.txt
+List all files in the workspace 

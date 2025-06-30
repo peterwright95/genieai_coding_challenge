@@ -209,6 +209,51 @@ Agent: The file `secret_config.txt` does not exist in the workspace, so it canno
 
 ---
 
+## 💬 Scripted Demo Runs with the CLI
+
+You can demonstrate the agent's capabilities by running a predefined sequence of prompts using the CLI chat in scripted mode. This is useful for reproducible demos or sharing example conversations.
+
+1. **Create a script file** (e.g., `examples/demo_script.txt`) with one prompt per line:
+
+```text
+List all files in the workspace
+Create a file called project.txt with the content Initial draft complete
+List files again
+Read the content of project.txt
+Append Reviewed by Alice to project.txt
+What does project.txt contain now?
+Delete the file project.txt
+List files one last time
+```
+
+2. **Run the CLI in scripted mode:**
+
+```bash
+python -m chat_interface.cli_chat --script examples/demo_script.txt --save-transcript
+```
+
+- The `--script` option specifies the path to your prompt file.
+- The `--save-transcript` flag will save the conversation to a timestamped text file for later review.
+
+You can create and use your own script files to showcase different scenarios or test the agent's behavior.
+
+### More Example Scripts
+
+Several example scripts are provided in the `examples/` directory:
+
+- `demo_script.txt`: Basic file operations and workflow
+- `file_search_script.txt`: Demonstrates searching for content and handling missing files
+- `edge_cases_script.txt`: Shows error handling and edge cases (missing files, empty files, directory as file)
+- `filtering_and_rejection_script.txt`: Demonstrates prompt filtering and safe rejection of irrelevant or unsafe requests
+
+You can run any of these with:
+
+```bash
+python -m chat_interface.cli_chat --script examples/<script_name> --save-transcript
+```
+
+---
+
 ## 🧪 Running the Test Suite
 
 To run the automated tests for this project, make sure you have activated your Python virtual environment and installed all dependencies:

@@ -1,0 +1,23 @@
+You: List all files in the workspace
+Agent: There are no files currently in the workspace.
+You: Create a file called project.txt with the content Initial draft complete
+Agent: The file `project.txt` has been created with the content "Initial draft complete."
+You: List files again
+Agent: The workspace currently contains the following file:
+
+- `project.txt`: 22 bytes, last modified on Mon Jun 30 11:02:54 2025.
+You: Read the content of project.txt
+Agent: The content of `project.txt` is "Initial draft complete."
+You: Append Reviewed by Alice to project.txt
+Agent: The text "Reviewed by Alice" has been successfully appended to `project.txt`.
+You: What does project.txt contain now?
+Agent: The file `project.txt` now contains the following:
+
+```
+Initial draft complete
+Reviewed by Alice
+```
+You: Delete the file project.txt
+Agent: The file `project.txt` has been successfully deleted.
+You: List files one last time
+Agent: There are no files currently in the workspace.

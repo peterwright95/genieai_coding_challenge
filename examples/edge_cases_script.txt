@@ -1,0 +1,8 @@
+List all files in the workspace
+Read the content of missing.txt
+Delete the file missing.txt
+Create a file called empty.txt with the content 
+Read the content of empty.txt
+Create a file called workspace with the content Should fail (workspace is a directory)
+Delete the file workspace
+List all files in the workspace 

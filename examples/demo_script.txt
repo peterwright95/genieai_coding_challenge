@@ -1,0 +1,8 @@
+List all files in the workspace
+Create a file called project.txt with the content Initial draft complete
+List files again
+Read the content of project.txt
+Append Reviewed by Alice to project.txt
+What does project.txt contain now?
+Delete the file project.txt
+List files one last time 

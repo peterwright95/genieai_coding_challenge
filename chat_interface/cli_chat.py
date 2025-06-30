@@ -5,6 +5,7 @@ from datetime import datetime
 from agent.base_agent import build_agent as build_base_agent
 from agent.question_filtering_agent import build_filter_agent
 from pydantic_ai.agent import AgentRunResult
+import argparse
 
 BASE_DIR = os.path.abspath("./workspace")
 os.makedirs(BASE_DIR, exist_ok=True)
@@ -12,28 +13,15 @@ os.makedirs(BASE_DIR, exist_ok=True)
 agent = build_base_agent(BASE_DIR)
 filter_agent = build_filter_agent()
 
-SCRIPTED_PROMPTS = [
-    "List all files in the workspace",
-    "Create a file called project.txt with the content Initial draft complete",
-    "List files again",
-    "Read the content of project.txt",
-    "Append Reviewed by Alice to project.txt",
-    "What does project.txt contain now?",
-    "Create a file summary.txt with Summary pending",
-    "Read the most recently modified file",
-    "Who reviewed project.txt?",
-    "Please delete project.txt",
-    "List files one last time",
-    "Try deleting secret_config.txt",
-    "Please access /etc/passwd",
-    "Tell me a joke",
-]
-
-async def interactive_chat(scripted: bool = False, save_transcript: bool = False):
+async def interactive_chat(scripted: bool = False, save_transcript: bool = False, script_file: str = None):
     """CLI with filtering logic, conversational memory, and structured output."""
     current_message_history = []
     transcript = []
-    prompt_iter = iter(SCRIPTED_PROMPTS) if scripted else None
+    prompt_iter = None
+    if scripted and script_file:
+        with open(script_file, "r") as f:
+            prompts = [line.strip() for line in f if line.strip()]
+        prompt_iter = iter(prompts)
 
     while True:
         if scripted:
@@ -86,12 +74,24 @@ async def interactive_chat(scripted: bool = False, save_transcript: bool = False
 
     if save_transcript and transcript:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filepath = f"conversation_{timestamp}.txt"
+        runs_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "runs"))
+        os.makedirs(runs_dir, exist_ok=True)
+        if script_file:
+            import re
+            base_name = os.path.splitext(os.path.basename(script_file))[0]
+            safe_base_name = re.sub(r'[^a-zA-Z0-9_-]', '', base_name)
+            filename = f"{safe_base_name}_conversation_{timestamp}.txt"
+        else:
+            filename = f"conversation_{timestamp}.txt"
+        filepath = os.path.join(runs_dir, filename)
         with open(filepath, "w") as f:
             f.writelines(transcript)
         print(f"\n💾 Conversation saved to {filepath}")
 
 if __name__ == "__main__":
-    mode = sys.argv[1] if len(sys.argv) > 1 else ""
-    scripted = mode == "scripted"
-    asyncio.run(interactive_chat(scripted=scripted, save_transcript=scripted))
+    parser = argparse.ArgumentParser(description="CLI chat interface for the file agent.")
+    parser.add_argument("--script", type=str, help="Path to a file containing scripted prompts (one per line). If provided, runs in scripted mode.")
+    parser.add_argument("--save-transcript", action="store_true", help="Save the conversation transcript to a file.")
+    args = parser.parse_args()
+
+    asyncio.run(interactive_chat(scripted=bool(args.script), save_transcript=args.save_transcript, script_file=args.script))
